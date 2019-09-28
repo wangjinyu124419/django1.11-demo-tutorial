@@ -11,6 +11,8 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/results/$', views.ResultsView.as_view(), name='results'),
     url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
     url(r'^json$', views.json_fun, name='json'),
+    url(r'^page_cache', views.page_cache, name='cache'),
+    url(r'^muti_cache', views.muti_cache, name='muti_cache'),
 
     # # ex: /polls/
     # url(r'^$', views.index, name='index'),

@@ -1,9 +1,13 @@
+import time
+
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.http import JsonResponse,HttpResponse
+from django.views.decorators.cache import cache_page
+
 
 
 from .models import Choice, Question
@@ -67,4 +71,26 @@ def json_fun(request):
     # return JsonResponse('JsonResponse',safe=False)
     d={'json':'string'}
     return JsonResponse(d)
+
+# @cache_page(300)
+@cache_page(60*10,cache='redis')
+# @cache_page(60*10,cache='default')
+def page_cache(request):
+    from django.core.cache import caches
+    time.sleep(3)
+    return HttpResponse('cache_page')
+
+from django.core.cache import cache
+from django.core.cache import caches
+import random
+def muti_cache(request):
+    # res_key=cache.get('res_key')
+    res_key=caches['redis'].get('res_key')
+    if not res_key:
+        res_key = random.randint(0,100)
+        cache.set('res_key','cache_key', 300)
+
+    return HttpResponse(res_key)
+
+
 
