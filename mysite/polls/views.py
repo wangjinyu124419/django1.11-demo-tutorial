@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.http import JsonResponse,HttpResponse
+
 
 from .models import Choice, Question
 
@@ -58,4 +60,11 @@ def vote(request, question_id):
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
+
+def json_fun(request):
+
+    # return HttpResponse('HttpResponse')
+    # return JsonResponse('JsonResponse',safe=False)
+    d={'json':'string'}
+    return JsonResponse(d)
 
